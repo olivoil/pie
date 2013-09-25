@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pie</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="../build/build.css" />
+    <style>
+      body {
+        padding: 100px;
+        background-color: rgba(255,255,255,0.5);
+      }
+      canvas {
+        padding: 5px;   
+      }
+    </style>
+  </head>
+  <body>
+    <script src="../build/build.js"></script>
+    <script>
+
+    (function(){
+      var Pie = require('pie');
+
+      var pie = new Pie;
+      pie.size(20);
+      document.body.appendChild(pie.el);
+
+      pie.animate([
+        { value: 20, color: 'rgba(23,23,23,1)' },
+        { value: 40, color: 'rgba(205,205,205,1)' },
+        { value: 40, color: 'rgba(63,63,63,1)' }
+      ]);
+    })();
+
+    (function(){
+      var Pie = require('pie');
+
+      var pie = new Pie;
+      pie.size(200);
+      document.body.appendChild(pie.el);
+
+      pie.animate([
+        { value: 10, color: 'rgba(77,83,97,1)' },
+        { value: 60, color: 'rgba(250,68,68,1)' },
+        { value: 15, color: 'rgba(62,191,190,1)' },
+        { value: 25, color: 'rgba(255,181,83,1)' }
+      ]);
+    })();
+
+    (function(){
+      var Pie = require('pie');
+
+      var pie = new Pie;
+      pie.size(50);
+      document.body.appendChild(pie.el);
+
+      pie.animate([
+        { value: 20, color: 'rgba(243,134,48,1)' },
+        { value: 40, color: 'rgba(224,228,204,1)' },
+        { value: 40, color: 'rgba(105,210,231,1)' }
+      ]);
+    })();
+    </script>
+  </body>
+</html>
