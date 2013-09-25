@@ -21,7 +21,48 @@ function Pie(){
   this.segments = [];
   this.el = document.createElement('canvas');
   this.ctx = this.el.getContext('2d');
+  this.easing('outBounce');
+  this.rotate(true).scale(false);
   this.size(50);
+}
+
+/**
+ * Set pie ease function to `easing`.
+ *
+ * @param {String} easing
+ * @return {Pie}
+ * @api public
+ */
+
+Pie.prototype.easing = function(easing){
+  this._easing = easing;
+  return this;
+}
+
+/**
+ * Animate by rotating pie.
+ *
+ * @param {Boolean} rotate
+ * @return {Pie}
+ * @api public
+ */
+
+Pie.prototype.rotate = function(rotate){
+  this._rotate = !!rotate;
+  return this;
+}
+
+/**
+ * Animate by scaling pie.
+ *
+ * @param {Boolean} scale
+ * @return {Pie}
+ * @api public
+ */
+
+Pie.prototype.scale = function(scale){
+  this._scale = !!scale;
+  return this;
 }
 
 /**
@@ -55,7 +96,7 @@ Pie.prototype.update = function(segments, scale, rotate){
 
 
 /**
- * Animate percentage to `n`.
+ * Animate segments.
  *
  * @param {Object[]} segments with `value`, and `color`
  * @param {String} easing
@@ -65,17 +106,8 @@ Pie.prototype.update = function(segments, scale, rotate){
  * @api public
  */
 
-Pie.prototype.animate = function(segments, easing, rotate, scale){
+Pie.prototype.animate = function(segments){
   var self = this;
-
-  if(arguments.length < 4 && typeof easing === 'boolean'){
-    easing = 'outBounce';
-    // easing = 'inOutQuart';
-    rotate = easing;
-    scale = rotate;
-  }
-
-  easing || (easing = 'outBounce');
   if(typeof rotate == 'undefined') rotate = true;
   raf.cancel(self.animation);
 
@@ -88,8 +120,8 @@ Pie.prototype.animate = function(segments, easing, rotate, scale){
       var now = Date.now();
       if (now - start >= duration) return self.update(segments);
       var p = (now - start) / duration;
-      var val = ease[easing](p);
-      self.update(segments, rotate && val, scale && val);
+      var val = ease[self._easing](p);
+      self.update(segments, self._rotate && val, self._scale && val);
       step();
     });
   }
