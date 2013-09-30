@@ -3,6 +3,7 @@
   <head>
     <title>Pie</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../build/build.css" />
     <style>
       body {
@@ -51,7 +52,7 @@
       var Pie = require('pie');
 
       var pie = new Pie;
-      pie.size(50);
+      pie.size(50).scale(true);
       document.body.appendChild(pie.el);
 
       pie.animate([
@@ -83,15 +84,24 @@
 
       pie.size(200)
          .easing('inOutQuart')
-         .rotate(false)
-         .scale(true);
 
       document.body.appendChild(pie.el);
 
-      pie.animate([
+      pie.update([
         { value: 20, color: 'rgba(243,134,48,1)' },
         { value: 40, color: 'rgba(224,228,204,1)' },
         { value: 40, color: 'rgba(105,210,231,1)' }
+      ]);
+
+      pie
+      .text('label')
+      .font('Roboto Condensed, sans-serif')
+      .color('rgba(254,110,32,1)')
+      .animate([
+        { value: 10, color: 'rgba(243,134,48,1)' },
+        { value: 30, color: 'rgba(224,228,204,1)' },
+        { value: 50, color: 'rgba(105,210,231,1)' },
+        { value: 25, color: 'rgba(255,181,83,1)' }
       ]);
 
     })();

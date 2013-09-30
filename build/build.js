@@ -489,6 +489,9 @@ function Pie(){
   this.easing('outBounce');
   this.rotate(true).scale(false);
   this.size(50);
+  this.fontSize(24);
+  this.color('rgba(31,190,242,1)');
+  this.font('helvetica, arial, sans-serif');
 }
 
 /**
@@ -503,6 +506,58 @@ Pie.prototype.easing = function(easing){
   this._easing = easing;
   return this;
 }
+
+/**
+ * Set font size to `n`.
+ *
+ * @param {Number} n
+ * @return {Pie}
+ * @api public
+ */
+
+Pie.prototype.fontSize = function(n){
+  this._fontSize = n;
+  return this;
+};
+
+/**
+ * Set text color to `str`.
+ *
+ * @param {String} str
+ * @return {Pie}
+ * @api public
+ */
+
+Pie.prototype.color = function(str){
+  this._color = str;
+  return this;
+}
+
+/**
+ * Set font `family`.
+ *
+ * @param {String} family
+ * @return {Pie}
+ * @api public
+ */
+
+Pie.prototype.font = function(family){
+  this._font = family;
+  return this;
+};
+
+/**
+ * Set text to `str`.
+ *
+ * @param {String} str
+ * @return {Pie}
+ * @api public
+ */
+
+Pie.prototype.text = function(str){
+  this._text = str && str.length ? str : void 0;
+  return this;
+};
 
 /**
  * Animate by rotating pie.
@@ -640,6 +695,24 @@ Pie.prototype.draw = function(ctx, rotate, scale){
 
     start += angle;
   });
+
+  if(!this._text) return this;
+
+  ctx.beginPath();
+  ctx.arc(x, y, rad - (rad / 3), 0, Math.PI * 2, true);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(255,255,255,1)';
+  ctx.fill();
+
+  ctx.font = this._fontSize + 'px ' + this._font;
+  var text = this._text
+    , w = ctx.measureText(text).width;
+  ctx.fillStyle = this._color;
+
+  ctx.fillText(
+      text
+    , x - w / 2 + 1
+    , y + this._fontSize / 2 - 1);
 
   return this;
 };
