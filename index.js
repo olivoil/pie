@@ -90,7 +90,7 @@ Pie.prototype.font = function(family){
  */
 
 Pie.prototype.text = function(str){
-  this._text = str && str.length ? str : void 0;
+  this._text = str;
   return this;
 };
 
@@ -164,18 +164,20 @@ Pie.prototype.update = function(segments, scale, rotate){
 Pie.prototype.animate = function(segments){
   var self = this;
   if(typeof rotate == 'undefined') rotate = true;
-  raf.cancel(self.animation);
+  raf.cancel(this.animation);
 
   var duration = 2000
     , start = Date.now()
     , end = start + duration
+    , text = this._text;
 
   function step(){
     self.animation = raf(function(){
       var now = Date.now();
-      if (now - start >= duration) return self.update(segments);
       var p = (now - start) / duration;
       var val = ease[self._easing](p);
+
+      if (now - start >= duration) return self.update(segments);
       self.update(segments, self._rotate && val, self._scale && val);
       step();
     });
