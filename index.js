@@ -220,16 +220,17 @@ Pie.prototype.draw = function(ctx, rotate, scale){
 
   this.segments.forEach(function(segment){
     var angle = rotate * (segment.value/total) * (Math.PI*2);
+
+    ctx.strokeStyle = self.segments.length > 1 ? strokeColor : segment.color;
+    ctx.lineWidth = strokeWidth;
+
     ctx.beginPath();
     ctx.arc(x, y, scale * rad, start, start + angle);
     ctx.lineTo(rad,rad);
     ctx.closePath();
     ctx.fillStyle = segment.color;
     ctx.fill();
-
-    ctx.lineWidth = strokeWidth;
-    ctx.strokeStyle = strokeColor;
-    if(self.segments.length > 1) ctx.stroke();
+    ctx.stroke();
 
     start += angle;
   });
