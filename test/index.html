@@ -84,7 +84,7 @@
 
       pie.size(200)
          .easing('inOutQuart')
-         .text('label')
+         .text('donut')
          .font('Roboto Condensed, sans-serif')
          .color('rgba(254,110,32,1)')
 
@@ -118,6 +118,23 @@
       ]);
     })();
 
+    (function(){
+      var Pie = require('pie');
+
+      var pie = new Pie;
+
+      pie.size(175)
+         .text('full donut')
+         .font('Roboto Condensed, sans-serif')
+         .color('rgba(254,110,32,1)')
+
+      document.body.appendChild(pie.el);
+
+      pie.animate([
+        { value: 100, color: 'rgba(243,134,48,1)' }
+      ]);
+
+    })();
     </script>
   </body>
 </html>

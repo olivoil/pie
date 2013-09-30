@@ -663,7 +663,8 @@ Pie.prototype.animate = function(segments){
  */
 
 Pie.prototype.draw = function(ctx, rotate, scale){
-  var ratio = window.devicePixelRatio || 1
+  var self = this
+    , ratio = window.devicePixelRatio || 1
     , size = this.el.width / ratio
     , half = size / 2
     , x = half
@@ -693,7 +694,7 @@ Pie.prototype.draw = function(ctx, rotate, scale){
 
     ctx.lineWidth = strokeWidth;
     ctx.strokeStyle = strokeColor;
-    ctx.stroke();
+    if(self.segments.length > 1) ctx.stroke();
 
     start += angle;
   });
