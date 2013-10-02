@@ -210,18 +210,21 @@ Pie.prototype.draw = function(ctx, rotate, scale){
     , strokeWidth = 2
     , strokeColor = '#fff';
 
-  var total = this.segments.reduce(function(sum, segment){
-    return sum + segment.value;
-  }, 0);
+  var total = this.segments.reduce(function(stats, segment){
+    if(!segment.value) return stats;
+    stats.sum += segment.value;
+    stats.count++;
+    return stats;
+  }, {sum: 0, count: 0});
 
   var start = 1.5 * Math.PI;
 
   ctx.clearRect(0, 0, size, size);
 
   this.segments.forEach(function(segment){
-    var angle = rotate * (segment.value/total) * (Math.PI*2);
+    var angle = rotate * (segment.value/total.sum) * (Math.PI*2);
 
-    ctx.strokeStyle = self.segments.length > 1 ? strokeColor : segment.color;
+    ctx.strokeStyle = total.count > 1 ? strokeColor : segment.color;
     ctx.lineWidth = strokeWidth;
 
     ctx.beginPath();
@@ -237,6 +240,7 @@ Pie.prototype.draw = function(ctx, rotate, scale){
 
   if(!this._text) return this;
 
+  // it's a donut
   ctx.beginPath();
   ctx.arc(x, y, rad - (rad / 3), 0, Math.PI * 2, true);
   ctx.closePath();
