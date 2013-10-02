@@ -687,6 +687,8 @@ Pie.prototype.draw = function(ctx, rotate, scale){
   ctx.clearRect(0, 0, size, size);
 
   this.segments.forEach(function(segment){
+    if(!segment.value) return;
+
     var angle = rotate * (segment.value/total.sum) * (Math.PI*2);
 
     ctx.strokeStyle = total.count > 1 ? strokeColor : segment.color;
